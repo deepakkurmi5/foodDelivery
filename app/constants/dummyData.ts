@@ -1,4 +1,5 @@
-import {icons, images} from '.';
+import {icons} from './icons';
+import {images} from './images';
 
 const myProfile = {
   name: 'ByProgrammers',
@@ -32,7 +33,7 @@ const hamburger = {
   price: 15.99,
   calories: 78,
   isFavourite: true,
-  image: require('../assets/dummyData/hamburger.png'),
+  image: images.hamburger,
 };
 
 const hotTacos = {
@@ -43,7 +44,7 @@ const hotTacos = {
   price: 10.99,
   calories: 78,
   isFavourite: false,
-  image: require('../assets/dummyData/hot_tacos.png'),
+  image: images.hotTacos,
 };
 
 const vegBiryani = {
@@ -54,7 +55,7 @@ const vegBiryani = {
   price: 10.99,
   calories: 78,
   isFavourite: true,
-  image: require('../assets/dummyData/veg_biryani.png'),
+  image: images.vegBiryani,
 };
 
 const wrapSandwich = {
@@ -65,7 +66,7 @@ const wrapSandwich = {
   price: 10.99,
   calories: 78,
   isFavourite: true,
-  image: require('../assets/dummyData/wrap_sandwich.png'),
+  image: images.wrapSandwich,
 };
 
 const menu = [
@@ -101,7 +102,7 @@ const menu = [
   },
 ];
 
-export default {
+export const dummyData = {
   myProfile,
   categories,
   menu,

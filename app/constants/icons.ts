@@ -21,7 +21,7 @@ const star = require('../assets/icons/star.png');
 const wallet = require('../assets/icons/wallet.png');
 const help = require('../assets/icons/help.png');
 
-export default {
+export const icons = {
   coupon,
   cross,
   cart,

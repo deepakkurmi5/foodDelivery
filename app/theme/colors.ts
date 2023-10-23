@@ -1,4 +1,4 @@
-export const COLORS = {
+export const colors = {
   primary: '#FF6C44', //orange
   transparentPrimray: 'rgba(227, 120, 75, 0.4)',
   orange: '#FFA133',

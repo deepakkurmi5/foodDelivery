@@ -103,7 +103,7 @@ const tags = [
   },
 ];
 
-export default {
+export const constants = {
   screens,
   bottom_tabs,
   delivery_time,
