@@ -6,7 +6,15 @@ import {colors, fonts, sizes} from '../theme';
 import {constants, dummyData, icons, images} from '../constants';
 import CustomDrawerItem from './custom-drawer-item';
 
-const CustomDrawerContent = ({navigation}: {navigation: any}) => {
+const CustomDrawerContent = ({
+  navigation,
+  selectedTab,
+  setSelectedTab,
+}: {
+  navigation: any;
+  selectedTab: string;
+  setSelectedTab: (tab: string) => void;
+}) => {
   return (
     <DrawerContentScrollView
       scrollEnabled={true}
@@ -67,7 +75,15 @@ const CustomDrawerContent = ({navigation}: {navigation: any}) => {
 
         {/* Drawer items */}
         <View style={{flex: 1, marginTop: sizes.padding}}>
-          <CustomDrawerItem label={constants.screens.home} icon={icons.home} />
+          <CustomDrawerItem
+            label={constants.screens.home}
+            icon={icons.home}
+            isFocus={selectedTab === constants.screens.home}
+            onPress={() => {
+              setSelectedTab(constants.screens.home);
+              navigation.navigate('MainLayout');
+            }}
+          />
           <CustomDrawerItem
             label={constants.screens.my_wallet}
             icon={icons.wallet}
@@ -75,10 +91,20 @@ const CustomDrawerContent = ({navigation}: {navigation: any}) => {
           <CustomDrawerItem
             label={constants.screens.notification}
             icon={icons.notification}
+            isFocus={selectedTab === constants.screens.notification}
+            onPress={() => {
+              setSelectedTab(constants.screens.notification);
+              navigation.navigate('MainLayout');
+            }}
           />
           <CustomDrawerItem
             label={constants.screens.favourite}
             icon={icons.favourite}
+            isFocus={selectedTab === constants.screens.favourite}
+            onPress={() => {
+              setSelectedTab(constants.screens.favourite);
+              navigation.navigate('MainLayout');
+            }}
           />
 
           {/* live devider */}

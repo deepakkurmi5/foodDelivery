@@ -1,33 +1,16 @@
 import {View} from 'react-native';
 import React from 'react';
-import {
-  createDrawerNavigator,
-  useDrawerProgress,
-} from '@react-navigation/drawer';
-import Animated from 'react-native-reanimated';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import {colors} from '../theme';
 import MainLayout from '../screens/main-layout';
 import CustomDrawerContent from './custom-drawer-content';
+import useTab from '../contexts/tab-context';
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawer = () => {
-  const progress = useDrawerProgress();
-
-  console.log('progress', progress);
-
-  const scale = Animated.interpolateNode(progress, {
-    inputRange: [0, 1],
-    outputRange: [0, 0.8],
-  });
-
-  const borderRadius = Animated.interpolateNode(progress, {
-    inputRange: [0, 1],
-    outputRange: [0, 26],
-  });
-
-  const animatedStyle = {borderRadius, transform: [{scale}]};
+  const {selectedTab, setSelectedTab} = useTab();
 
   return (
     <View style={{flex: 1, backgroundColor: colors.primary}}>
@@ -48,13 +31,15 @@ const CustomDrawer = () => {
           },
         }}
         drawerContent={props => {
-          return <CustomDrawerContent navigation={props.navigation} />;
+          return (
+            <CustomDrawerContent
+              navigation={props.navigation}
+              selectedTab={selectedTab}
+              setSelectedTab={setSelectedTab}
+            />
+          );
         }}>
-        <Drawer.Screen name="MainLayout">
-          {props => (
-            <MainLayout {...props} drawerAnimationStyle={animatedStyle} />
-          )}
-        </Drawer.Screen>
+        <Drawer.Screen name="MainLayout" component={MainLayout} />
       </Drawer.Navigator>
     </View>
   );

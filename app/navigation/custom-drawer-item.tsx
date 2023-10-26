@@ -6,9 +6,13 @@ import {colors, fonts, sizes} from '../theme';
 const CustomDrawerItem = ({
   label,
   icon,
+  isFocus,
+  onPress,
 }: {
+  isFocus?: boolean;
   label: string;
   icon: ImageSourcePropType;
+  onPress?: any;
 }) => {
   return (
     <TouchableOpacity
@@ -19,7 +23,9 @@ const CustomDrawerItem = ({
         alignItems: 'center',
         paddingLeft: sizes.base,
         borderRadius: sizes.base,
-      }}>
+        backgroundColor: isFocus ? colors.transparentBlack1 : undefined,
+      }}
+      onPress={onPress}>
       <Image
         source={icon}
         style={{width: 20, height: 20, tintColor: colors.white}}
