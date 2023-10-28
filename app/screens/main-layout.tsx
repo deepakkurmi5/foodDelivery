@@ -1,6 +1,6 @@
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, TouchableOpacity, View} from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -9,16 +9,23 @@ import Animated, {
 import LinearGradient from 'react-native-linear-gradient';
 
 import Header from '../components/organisms/header';
-import {colors, sizes} from '../theme';
+import {colors, metrics, sizes} from '../theme';
 import useTab from '../contexts/tab-context';
 import {constants, icons, images} from '../constants';
 import {RootStackParamList} from '../navigation/type';
 import TabButton from '../components/atoms/tab-button';
+import Home from './home';
+import Search from './search';
+import Cart from './cart';
+import Favourite from './favourite';
+import Notification from './notification';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MainLayout'>;
 
 const MainLayout = ({navigation}: Props) => {
   const {selectedTab, setSelectedTab} = useTab();
+
+  const flatListRef = useRef(null);
 
   const homeTabFlex = useSharedValue(1);
   const homeTabColor = useSharedValue(colors.white);
@@ -71,6 +78,10 @@ const MainLayout = ({navigation}: Props) => {
 
   useEffect(() => {
     if (selectedTab === constants.screens.home) {
+      flatListRef?.current?.scrollToIndex({
+        index: 0,
+        animated: false,
+      });
       homeTabFlex.value = withTiming(4, {duration: 500});
       homeTabColor.value = withTiming(colors.primary, {duration: 500});
     } else {
@@ -79,6 +90,10 @@ const MainLayout = ({navigation}: Props) => {
     }
 
     if (selectedTab === constants.screens.search) {
+      flatListRef?.current?.scrollToIndex({
+        index: 1,
+        animated: false,
+      });
       searchTabFlex.value = withTiming(4, {duration: 500});
       searchTabColor.value = withTiming(colors.primary, {duration: 500});
     } else {
@@ -87,6 +102,10 @@ const MainLayout = ({navigation}: Props) => {
     }
 
     if (selectedTab === constants.screens.cart) {
+      flatListRef?.current?.scrollToIndex({
+        index: 2,
+        animated: false,
+      });
       cartTabFlex.value = withTiming(4, {duration: 500});
       cartTabColor.value = withTiming(colors.primary, {duration: 500});
     } else {
@@ -95,6 +114,10 @@ const MainLayout = ({navigation}: Props) => {
     }
 
     if (selectedTab === constants.screens.favourite) {
+      flatListRef?.current?.scrollToIndex({
+        index: 3,
+        animated: false,
+      });
       favouriteTabFlex.value = withTiming(4, {duration: 500});
       favouriteTabColor.value = withTiming(colors.primary, {duration: 500});
     } else {
@@ -103,6 +126,10 @@ const MainLayout = ({navigation}: Props) => {
     }
 
     if (selectedTab === constants.screens.notification) {
+      flatListRef?.current?.scrollToIndex({
+        index: 4,
+        animated: false,
+      });
       notificationTabFlex.value = withTiming(4, {duration: 500});
       notificationTabColor.value = withTiming(colors.primary, {duration: 500});
     } else {
@@ -168,7 +195,36 @@ const MainLayout = ({navigation}: Props) => {
         }
       />
       {/* Content  */}
-      <View style={{flex: 1}}></View>
+      <View style={{flex: 1}}>
+        <FlatList
+          ref={flatListRef}
+          horizontal
+          scrollEnabled={false}
+          pagingEnabled
+          snapToAlignment="center"
+          snapToInterval={metrics.width}
+          showsHorizontalScrollIndicator={false}
+          data={constants.bottom_tabs}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => {
+            return (
+              <View
+                style={{
+                  height: metrics.height,
+                  width: metrics.width,
+                }}>
+                {item.label === constants.screens.home && <Home />}
+                {item.label === constants.screens.search && <Search />}
+                {item.label === constants.screens.cart && <Cart />}
+                {item.label === constants.screens.favourite && <Favourite />}
+                {item.label === constants.screens.notification && (
+                  <Notification />
+                )}
+              </View>
+            );
+          }}
+        />
+      </View>
       {/* Footer  */}
       <View style={{height: 100, justifyContent: 'flex-end'}}>
         {/*  Shadow  */}

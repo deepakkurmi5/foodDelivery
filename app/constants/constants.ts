@@ -10,23 +10,23 @@ const screens = {
 
 const bottom_tabs = [
   {
-    id: 0,
+    id: '0',
     label: screens.home,
   },
   {
-    id: 1,
+    id: '1',
     label: screens.search,
   },
   {
-    id: 2,
+    id: '2',
     label: screens.cart,
   },
   {
-    id: 3,
+    id: '3',
     label: screens.favourite,
   },
   {
-    id: 4,
+    id: '4',
     label: screens.notification,
   },
 ];
